@@ -11,4 +11,8 @@ class Course extends Model
     {
     	return $this->hasMany(Timetable::class);
     }
+    public function leveld()
+    {
+    	return $this->belongsTo(LevelD::class);
+    }
 }
