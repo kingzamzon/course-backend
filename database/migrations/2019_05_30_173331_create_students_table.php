@@ -17,8 +17,10 @@ class CreateStudentsTable extends Migration
             $table->increments('id');
             $table->string('username')->unique();
             $table->string('password');
-            $table->integer('leveld_id');
+            $table->integer('leveld_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('leveld_id')->references('leveld_id')->on('levels_department');
         });
     }
 
