@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LevelD extends Model
 {
+	protected $table = 'levels_department';
     public function students()
     {
     	return $this->hasMany(Student::class);
