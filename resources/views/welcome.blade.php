@@ -64,6 +64,7 @@
         </style>
     </head>
     <body>
+        how to use the api
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
