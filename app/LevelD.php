@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 class LevelD extends Model
 {
 	protected $table = 'levels_department';
+	protected $primaryKey = 'leveld_id';
+
+
+
     public function students()
     {
     	return $this->hasMany(Student::class);
