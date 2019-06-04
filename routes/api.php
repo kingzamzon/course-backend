@@ -16,16 +16,31 @@ use Illuminate\Http\Request;
 /*
 * Courses
 */
-Route::resource('courses', 'Course\CourseController', ['except' => ['create', 'edit']]);
+Route::resource('courses', 'Course\CourseController', ['except' => ['create', 'edit']]
+);
 /*
 * Timetables
 */
-Route::resource('timetables', 'Timetable\TimetableController', ['except' => ['create', 'edit']]);
+Route::resource('timetables', 'Timetable\TimetableController', ['except' => ['create', 'edit']]
+);
 /*
 * Courses
 */
-Route::resource('levels', 'LevelD\LevelDController', ['except' => ['create', 'edit']]);
+Route::resource('levels', 'LevelD\LevelDController', ['except' => ['create', 'edit']]
+);
 
+/*
+* Students
+*/
+Route::resource('students', 'Student\StudentController', ['except' => ['create', 'edit']]
+);
+
+/*
+*	Lecturers
+*/
+
+Route::resource('lecturers', 'Lecturer\LecturerController', ['except' => ['create','edit']]
+);
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
