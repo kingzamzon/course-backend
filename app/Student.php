@@ -14,8 +14,14 @@ class Student extends Model
 		'username','password','leveld_id'
 	];
 
+
+
     public function leveld()
     {
     	return $this->belongsTo(LevelD::class);
     }
+
+    protected $hidden = [
+    	'password'
+    ];
 }
