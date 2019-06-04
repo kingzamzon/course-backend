@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Lecturer;
 
 use App\Lecturer;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class LecturerController extends Controller
+class LecturerController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class LecturerController extends Controller
         $lecturers = Lecturer::all();
         $total_lecturers = Lecturer::all()->count();
 
-        return response()->json(['data' => $lecturers], 200);
+        return $this->showAll($lecturers);
     }
 
 
@@ -41,7 +41,7 @@ class LecturerController extends Controller
         $data['password'] = bcrypt($request->password);
         $user = Lecturer::create($data);
 
-        return response()->json(['data' => $user], 201);
+        return $this->showOne($user, 201);
     }
 
     /**
@@ -54,7 +54,7 @@ class LecturerController extends Controller
     {
         $lecturer = Lecturer::findOrFail($id);
 
-        return response()->json(['data' => $lecturer], 200);
+        return $this->showOne($lecturer);
     }
 
  
@@ -81,13 +81,13 @@ class LecturerController extends Controller
 
         if(!$lecturer->isDirty()) 
         {
-            return response()->json(['error' => 'you need to specify a different value', 'code' => 422], 422);
+            return $this->errorResponse('you need to specify a different value', 422);
         }
 
         $lecturer->save();
 
 
-        return response()->json(['data' => $lecturer], 200);
+        return $this->showOne($lecturer, 200);
 
     }
 
@@ -103,6 +103,6 @@ class LecturerController extends Controller
 
         $lecturer->delete();
 
-        return response()->json(['data' => $lecturer], 201);
+        return $this->showOne($lecturer, 201);
     }
 }

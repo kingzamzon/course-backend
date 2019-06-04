@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Student;
 
 use App\Student;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class StudentController extends Controller
+class StudentController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class StudentController extends Controller
     {
         $students = Student::all();
 
-        return response()->json(['data'=>$students], 200);
+        return $this->showAll($students);
     }
 
 
@@ -42,7 +42,7 @@ class StudentController extends Controller
         $data['password'] = bcrypt($request->password);
         $user = Student::create($data);
 
-        return response()->json(['data'=> $user], 201);
+        return $this->showOne($user, 201);
 
     }
 
@@ -56,7 +56,7 @@ class StudentController extends Controller
     {
         $student = Student::findOrFail($id);
 
-        return response()->json(['data'=>$student], 200);
+        return $this->showOne($student);
     }
 
     /**
@@ -79,12 +79,12 @@ class StudentController extends Controller
         } 
 
         if(!$student->isDirty()) {
-            return response()->json(['error' => 'you need to specify a different value','code' => 422],422);
+            return $this->errorResponse('you need to specify a different value', 422);
         }
 
         $student->save();
 
-        return response()->json(['data' => $student], 200);
+        return $this->showOne($student);
     }
 
     /**
@@ -99,6 +99,6 @@ class StudentController extends Controller
 
         $student->delete();
 
-        return response()->json(['data' => $student], 201);
+        return $this->showOne($student, 201);
     }
 }
