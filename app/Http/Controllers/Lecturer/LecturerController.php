@@ -74,7 +74,7 @@ class LecturerController extends Controller
             'password' => 'min:6'
         ];
 
-        if($request->has('password'))
+        if($request->has('password') && $lecturer != $request->password)
         {
             $lecturer->password = bcrypt($request->password);
         }
@@ -85,6 +85,10 @@ class LecturerController extends Controller
         }
 
         $lecturer->save();
+
+
+        return response()->json(['data' => $lecturer], 200);
+
     }
 
     /**
