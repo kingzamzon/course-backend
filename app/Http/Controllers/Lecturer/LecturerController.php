@@ -30,7 +30,18 @@ class LecturerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'username' => 'required|min:5',
+            'password' => 'required:min:6'
+        ];
+
+        $this->validate($request, $rules);
+
+        $data = $request->all();
+        $data['password'] = bcrypt($request->password);
+        $user = Lecturer::create($data);
+
+        return response()->json(['data' => $user], 201);
     }
 
     /**
@@ -41,7 +52,9 @@ class LecturerController extends Controller
      */
     public function show($id)
     {
-        //
+        $lecturer = Lecturer::findOrFail($id);
+
+        return response()->json(['data' => $lecturer], 200);
     }
 
  
@@ -55,7 +68,23 @@ class LecturerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $lecturer = Lecturer::findOrFail($id);
+
+        $rules = [
+            'password' => 'min:6'
+        ];
+
+        if($request->has('password'))
+        {
+            $lecturer->password = bcrypt($request->password);
+        }
+
+        if(!$lecturer->isDirty()) 
+        {
+            return response()->json(['error' => 'you need to specify a different value', 'code' => 422], 422);
+        }
+
+        $lecturer->save();
     }
 
     /**
@@ -66,6 +95,10 @@ class LecturerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $lecturer = Lecturer::findOrFail($id);
+
+        $lecturer->delete();
+
+        return response()->json(['data' => $lecturer], 201);
     }
 }
