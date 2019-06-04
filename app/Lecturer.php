@@ -9,6 +9,16 @@ class Lecturer extends Model
 {
 	protected $primaryKey = 'lecturer_id';
 
+    public function setUsernameAttribute($username)
+    {
+        $this->attributes['username'] = strtolower($username);
+    }
+
+    public function getUsernameAttribute($username)
+    {
+        return strtolower($username);
+    }
+
 	protected $fillable = [
 		'username','password'
 	];
@@ -17,4 +27,8 @@ class Lecturer extends Model
     {
     	return $this->hasMany(Course::class);
     }
+
+    protected $hidden = [
+    	'password'
+    ];
 }
