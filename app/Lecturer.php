@@ -4,10 +4,15 @@ namespace App;
 
 use App\Course;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lecturer extends Model
 {
-	protected $primaryKey = 'lecturer_id';
+	use SoftDeletes;
+
+    protected $primaryKey = 'lecturer_id';
+
+    protected $dates = ['deleted_at'];
 
     public function setUsernameAttribute($username)
     {
