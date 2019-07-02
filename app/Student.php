@@ -18,7 +18,7 @@ class Student extends Model
 
     public function leveld()
     {
-    	return $this->belongsTo(LevelD::class);
+    	return $this->belongsTo(LevelD::class, 'leveld_id', 'leveld_id');
     }
 
     protected $hidden = [
