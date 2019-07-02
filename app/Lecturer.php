@@ -10,7 +10,11 @@ class Lecturer extends Model
 {
 	use SoftDeletes;
 
+
+
     protected $primaryKey = 'lecturer_id';
+
+      protected $table = 'lecturers';
 
     protected $dates = ['deleted_at'];
 
@@ -30,7 +34,7 @@ class Lecturer extends Model
 
     public function courses()
     {
-    	return $this->hasMany(Course::class);
+    	return $this->hasMany(Course::class, 'lecturer_id', 'lecturer_id');
     }
 
     protected $hidden = [
