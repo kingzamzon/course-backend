@@ -18,14 +18,20 @@ use Illuminate\Http\Request;
 */
 Route::resource('courses', 'Course\CourseController', ['except' => ['create', 'edit']]
 );
+Route::resource('courses.lecturers', 'Course\CourseLecturerController', ['only' => ['index']]
+);
+
 /*
 * Timetables
 */
 Route::resource('timetables', 'Timetable\TimetableController', ['except' => ['create', 'edit']]
 );
+
 /*
-* Courses
+* Levels
 */
+Route::resource('levels', 'LevelD\LevelDController', ['except' => ['create', 'edit']]
+);
 Route::resource('levels', 'LevelD\LevelDController', ['except' => ['create', 'edit']]
 );
 
@@ -41,6 +47,9 @@ Route::resource('students', 'Student\StudentController', ['except' => ['create',
 
 Route::resource('lecturers', 'Lecturer\LecturerController', ['except' => ['create','edit']]
 );
+Route::resource('lecturers.courses', 'Lecturer\LecturerCourseController', ['only' => 'index']
+);
+
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
