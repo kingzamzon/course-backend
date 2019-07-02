@@ -74,7 +74,7 @@ class LecturerController extends ApiController
             'password' => 'min:6'
         ];
 
-        if($request->has('password') && $lecturer != $request->password)
+        if($request->has('password'))
         {
             $lecturer->password = bcrypt($request->password);
         }
