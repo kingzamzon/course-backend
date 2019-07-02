@@ -15,6 +15,7 @@ class StudentController extends ApiController
      */
     public function index()
     {
+        // $students = Student::has('leveld')->get();
         $students = Student::all();
 
         return $this->showAll($students);
@@ -66,19 +67,13 @@ class StudentController extends ApiController
      * @return \Illuminate\Http\Response
      */
     
-    public function update(Request $request, $id)
+    public function update(Request $request, Student $student)
     {
-        $student = Student::findOrFail($id);
+        $student->fill($request->only([
+            'password'
+        ]));
 
-        $rules = [
-            'password' => 'min:6'
-        ];
-
-        if($request->has('password') && $student->password != $request->password) {
-            $student->password = bcrypt($request->password);
-        } 
-
-        if(!$student->isDirty()) {
+        if($student->isClean()) {
             return $this->errorResponse('you need to specify a different value', 422);
         }
 
